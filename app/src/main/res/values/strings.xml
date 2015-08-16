@@ -21,14 +21,32 @@
     <string name="backbtn">Back</string>
 
     <string name="action_settings">Settings</string>
+    <string-array name="categories">
+    <item>Blood</item>
+    <item>Plasma</item>
+        <item>Bone Marrow</item>
+    </string-array>
     <string-array name="spinner_bg">
-        <item>A+</item>
-        <item>B+</item>
-        <item>AB+</item>
-        <item>O+</item>
-        <item>A-</item>
-        <item>B-</item>
-        <item>AB-</item>
-        <item>O-</item>
+        <item>AP</item>
+        <item>BP</item>
+        <item>ABP</item>
+        <item>OP</item>
+        <item>AN</item>
+        <item>BN</item>
+        <item>ABN</item>
+        <item>ON</item>
+    </string-array>
+
+    <string-array name="spinner_sex">
+        <item>M</item>
+        <item>F</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="spinnerloc">
+        <item>Banashankari</item>
+        <item>Jayanagar</item>
+        <item>Malleshwaram</item>
+        <item>Yelahanka</item>
     </string-array>
 </resources>

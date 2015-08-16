@@ -1,6 +1,7 @@
 package com.example.aramesh.hipc_trial;import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -52,33 +53,43 @@ public class LoginActivity extends Activity {
 //                            public void done(ParseUser user, ParseException e) {
 //                                if (user != null) {
 //                                    // If user exist and authenticated, send user to Welcome.class
+
                 int selectedId = radioUTGroup.getCheckedRadioButtonId();
+
+
+                if(radioUTGroup.getCheckedRadioButtonId()!=-1){
+                    int id= radioUTGroup.getCheckedRadioButtonId();
+                    View radioButton = radioUTGroup.findViewById(id);
+                    int radioId = radioUTGroup.indexOfChild(radioButton);
+                    RadioButton btn = (RadioButton) radioUTGroup.getChildAt(radioId);
+                    String selection = (String) btn.getText();
 
                 // find the radiobutton by returned id
                 radioUTButton = (RadioButton) findViewById(selectedId);
 
-                if (radioUTButton.getText() == "Admin") {
+
+                if (selection.equals("Admin")) {
 
                     Intent intent = new Intent(
                             LoginActivity.this,
                             AdminActivity.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(),
-                            "Successfully Signed up, please log in.",
+                            "Successfully entered , please signup as admin.",
                             Toast.LENGTH_LONG).show();
                     finish();
                 }
-                else
+                else if (selection.equals("User"))
                 {
                     Intent intent = new Intent(
                             LoginActivity.this,
                             UserActivity.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(),
-                            "Successfully Signed up, please log in.",
+                            "Successfully entered , please signup as user .",
                             Toast.LENGTH_LONG).show();
                     finish();
-                }
+                }}
 //                                } else {
 //                                    Toast.makeText(
 //                                            getApplicationContext(),
@@ -91,6 +102,8 @@ public class LoginActivity extends Activity {
         });
         // Sign up Button Click Listener
         loginbutton.setOnClickListener(new OnClickListener() {
+
+            HTTPRequest req= new HTTPRequest();
 
             public void onClick(View arg0) {
                 // Retrieve the text entered from the EditText
@@ -114,9 +127,36 @@ public class LoginActivity extends Activity {
 //                        public void done(ParseException e) {
 //                            if (e == null) {
 //                                // Show a simple Toast message upon successful registration
-                               Toast.makeText(getApplicationContext(),
-                                        "Successfully Signed up, please log in.",
-                                       Toast.LENGTH_LONG).show();
+//
+                    try {
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+                        StrictMode.setThreadPolicy(policy);
+                        Toast.makeText(getApplicationContext(),
+                                "phoneNumber="+mobNum.getText()+"",
+                                Toast.LENGTH_SHORT).show();
+
+                        StringBuffer response = req.sendPost("phoneNumber="+mobNum.getText()+"","http://10.14.120.130/server/login.php",1);
+                        Toast.makeText(getApplicationContext(), "\nSending 'POST' request to URL : " + response, Toast.LENGTH_LONG).show();
+
+                        if(response.toString().equals("admin"))
+                        {
+                            Intent intent = new Intent(
+                                    LoginActivity.this,
+                                    Admin_Dashboard.class);
+                            startActivity(intent);
+                        }
+
+
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+//                               Toast.makeText(getApplicationContext(),
+//                                        "Successfully Logged in.",
+//                                       Toast.LENGTH_SHORT).show();
 //                            } else {
 //                                Toast.makeText(getApplicationContext(),
 //                                        "Sign up Error", Toast.LENGTH_LONG)

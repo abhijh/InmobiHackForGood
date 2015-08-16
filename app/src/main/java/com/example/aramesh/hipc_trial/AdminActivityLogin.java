@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AdminActivity extends Activity {
+public class AdminActivityLogin extends Activity {
 
     // Declare Variable
     Button logout,back_btn,submit_btn;
@@ -34,7 +34,7 @@ public class AdminActivity extends Activity {
         //String struser = currentUser.getUsername().toString();
 
         // Locate TextView in welcome.xml
-         txtmobnum = (TextView) findViewById(R.id.mobnum);
+        txtmobnum = (TextView) findViewById(R.id.mobnum);
         txtorgid = (TextView) findViewById(R.id.orgId);
 
 //
@@ -57,8 +57,8 @@ public class AdminActivity extends Activity {
             }
         });
 
-       // Submit Button Click Listener
-       submit_btn.setOnClickListener(new OnClickListener() {
+        // Submit Button Click Listener
+        submit_btn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View arg0) {
                 // Logout current user
@@ -67,9 +67,9 @@ public class AdminActivity extends Activity {
                 bundle.putString("phoneNumber",txtmobnum.getText()+"");
                 bundle.putString("orgId",txtorgid.getText()+"");
                 Intent myIntent = new Intent();
-                myIntent.setClass(AdminActivity.this, HTTPRequest.class);
+                myIntent.setClass(AdminActivityLogin.this, HTTPRequest.class);
 
-                 myIntent.putExtras(bundle);
+                myIntent.putExtras(bundle);
 
 
                 startActivity(myIntent);
